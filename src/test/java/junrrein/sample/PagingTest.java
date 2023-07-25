@@ -20,16 +20,26 @@ import com.blazebit.persistence.CriteriaBuilder;
 import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.PaginatedCriteriaBuilder;
 import junrrein.model.Organization;
-import org.junit.Assert;
 import org.junit.Test;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class PagingTest extends AbstractSampleTest {
     
     @Test
     public void pagingTest() {
         transactional(em -> {
+
+            String jpaQueryString = """
+                SELECT org FROM Organization org
+                JOIN org.paymentMethods pm
+                WHERE pm.name = 'Debit card'
+                ORDER BY org.id
+            """;
+            TypedQuery<Organization> jpaQuery = em.createQuery(jpaQueryString, Organization.class);
 
             CriteriaBuilder<Organization> cb = cbf.create(em, Organization.class)
                 .from(Organization.class, "org")
@@ -40,20 +50,26 @@ public class PagingTest extends AbstractSampleTest {
             PaginatedCriteriaBuilder<Organization> pagedCb = cb.page(0, 100);
 
             System.out.println("\n====================================");
-            List<Organization> list = cb.getResultList();
-            System.out.println("Result list:");
-            System.out.println(list);
+            List<Organization> jpaList = jpaQuery.getResultList();
+            System.out.println("Result list (Plain JPA):");
+            System.out.println(jpaList);
             System.out.println("====================================");
-
 
             System.out.println("\n====================================");
-            PagedList<Organization> pagedList = pagedCb.getResultList();
-            System.out.println("\nResult list (paging):");
-            System.out.println(pagedList);
+            List<Organization> blazeList = cb.getResultList();
+            System.out.println("Result list (Blaze):");
+            System.out.println(blazeList);
             System.out.println("====================================");
 
-            Assert.assertEquals(1, list.size());
-            Assert.assertEquals(1, pagedList.size());
+            System.out.println("\n====================================");
+            PagedList<Organization> blazePagedList = pagedCb.getResultList();
+            System.out.println("\nResult list (Blaze) (paging):");
+            System.out.println(blazePagedList);
+            System.out.println("====================================");
+
+            assertEquals(1, jpaList.size());
+            assertEquals(1, blazeList.size());
+            assertEquals(1, blazePagedList.size());
         });
     }
 }

@@ -27,8 +27,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         
         <version.blaze-persistence>1.6.9</version.blaze-persistence>
     </properties>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.8.Final</version>
+            <version>5.6.15.Final</version>
         </dependency>
 
         <!-- Core dependencies -->
@@ -63,7 +63,7 @@
         </dependency>
         <dependency>
             <groupId>com.blazebit</groupId>
-            <artifactId>blaze-persistence-integration-hibernate-5.2</artifactId>
+            <artifactId>blaze-persistence-integration-hibernate-5.6</artifactId>
         </dependency>
 
         <!-- JDK9+ dependencies -->
