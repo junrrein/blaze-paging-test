@@ -49,19 +49,19 @@ public class PagingTest extends AbstractSampleTest {
 
             PaginatedCriteriaBuilder<Organization> pagedCb = cb.page(0, 100);
 
-            System.out.println("\n====================================");
+            System.out.println("\n========= Using plain JPA ===========================");
             List<Organization> jpaList = jpaQuery.getResultList();
             System.out.println("Result list (Plain JPA):");
             System.out.println(jpaList);
             System.out.println("====================================");
 
-            System.out.println("\n====================================");
+            System.out.println("\n========= Using Blaze ===========================");
             List<Organization> blazeList = cb.getResultList();
             System.out.println("Result list (Blaze):");
             System.out.println(blazeList);
             System.out.println("====================================");
 
-            System.out.println("\n====================================");
+            System.out.println("\n========= Using Blaze (paging) ===========================");
             PagedList<Organization> blazePagedList = pagedCb.getResultList();
             System.out.println("\nResult list (Blaze) (paging):");
             System.out.println(blazePagedList);
