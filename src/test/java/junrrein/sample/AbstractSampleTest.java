@@ -19,6 +19,8 @@ package junrrein.sample;
 import com.blazebit.persistence.Criteria;
 import com.blazebit.persistence.CriteriaBuilderFactory;
 import com.blazebit.persistence.spi.CriteriaBuilderConfiguration;
+
+import java.util.List;
 import java.util.function.Consumer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -50,17 +52,7 @@ public abstract class AbstractSampleTest {
             em.persist(debit);
             em.persist(credit);
 
-            OrganizationPaymentMethod orgDebit = new OrganizationPaymentMethod(
-                new OrganizationPaymentMethodPK(org.getId(), debit.getId()),
-                true
-            );
-            OrganizationPaymentMethod orgCredit = new OrganizationPaymentMethod(
-                new OrganizationPaymentMethodPK(org.getId(), credit.getId()),
-                true
-            );
-
-            em.persist(orgDebit);
-            em.persist(orgCredit);
+            org.setPaymentMethods(List.of(debit, credit));
         });
     }
     

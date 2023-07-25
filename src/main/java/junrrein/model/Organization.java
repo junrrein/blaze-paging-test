@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Entity
 public class Organization {
 
@@ -15,8 +16,8 @@ public class Organization {
 
     private String name;
 
-    @OneToMany(mappedBy = "organization")
-    private List<OrganizationPaymentMethod> organizationPaymentMethods;
+    @OneToMany
+    private List<PaymentMethod> paymentMethods;
 
 
     public Organization() {
@@ -42,12 +43,12 @@ public class Organization {
         this.name = name;
     }
 
-    public List<OrganizationPaymentMethod> getOrganizationPaymentMethods() {
-        return organizationPaymentMethods;
+    public List<PaymentMethod> getPaymentMethods() {
+        return paymentMethods;
     }
 
-    public void setOrganizationPaymentMethods(List<OrganizationPaymentMethod> organizationPaymentMethods) {
-        this.organizationPaymentMethods = organizationPaymentMethods;
+    public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
+        this.paymentMethods = paymentMethods;
     }
 
 

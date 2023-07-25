@@ -33,8 +33,8 @@ public class PagingTest extends AbstractSampleTest {
 
             CriteriaBuilder<Organization> cb = cbf.create(em, Organization.class)
                 .from(Organization.class, "org")
-                .innerJoin("org.organizationPaymentMethods", "opm")
-                .where("opm.id.paymentMethodId").eq(2)
+                .innerJoin("org.paymentMethods", "pm")
+                .where("pm.name").eq("Debit card")
                 .orderByAsc("org.id");
 
             PaginatedCriteriaBuilder<Organization> pagedCb = cb.page(0, 100);
