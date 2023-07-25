@@ -41,6 +41,10 @@ public class PagingTest extends AbstractSampleTest {
             """;
             TypedQuery<Organization> jpaQuery = em.createQuery(jpaQueryString, Organization.class);
 
+            TypedQuery<Organization> pagedJpaQuery = em.createQuery(jpaQueryString, Organization.class)
+                .setFirstResult(0)
+                .setMaxResults(100);
+
             CriteriaBuilder<Organization> cb = cbf.create(em, Organization.class)
                 .from(Organization.class, "org")
                 .innerJoin("org.paymentMethods", "pm")
@@ -53,6 +57,12 @@ public class PagingTest extends AbstractSampleTest {
             List<Organization> jpaList = jpaQuery.getResultList();
             System.out.println("Result list (Plain JPA):");
             System.out.println(jpaList);
+            System.out.println("====================================");
+
+            System.out.println("\n========= Using plain JPA (paging) ===========================");
+            List<Organization> pagedJpaList = pagedJpaQuery.getResultList();
+            System.out.println("Result list (Plain JPA):");
+            System.out.println(pagedJpaList);
             System.out.println("====================================");
 
             System.out.println("\n========= Using Blaze ===========================");
@@ -68,6 +78,7 @@ public class PagingTest extends AbstractSampleTest {
             System.out.println("====================================");
 
             assertEquals(1, jpaList.size());
+            assertEquals(1, pagedJpaList.size());
             assertEquals(1, blazeList.size());
             assertEquals(1, blazePagedList.size());
         });
