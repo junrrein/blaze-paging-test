@@ -61,7 +61,7 @@ public class PagingTest extends AbstractSampleTest {
 
             System.out.println("\n========= Using plain JPA (paging) ===========================");
             List<Organization> pagedJpaList = pagedJpaQuery.getResultList();
-            System.out.println("Result list (Plain JPA):");
+            System.out.println("Result list (Plain JPA) (paging):");
             System.out.println(pagedJpaList);
             System.out.println("====================================");
 
